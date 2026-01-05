@@ -1,5 +1,22 @@
 {
+  "version": 2,
   "buildCommand": "cd frontend && pnpm install && pnpm run build",
   "outputDirectory": "frontend/dist",
-  "installCommand": "pnpm install"
+  "installCommand": "pnpm install",
+  "builds": [
+    {
+      "src": "backend/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/dist/$1"
+    }
+  ]
 }
